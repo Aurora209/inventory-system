@@ -1109,14 +1109,14 @@ export default {
         '</head>' +
         '<body>' +
         printContent +
-        '  <script>' +
+        '  <sc' + 'ript>' +
         '    window.onload = function() {' +
         '      window.print();' +
         '      window.onafterprint = function() {' +
         '        window.close();' +
         '      }' +
         '    }' +
-        '  </scr' + 'ipt>' +  // 拆分script标签避免冲突
+        '  </sc' + 'ript>' +
         '</body>' +
         '</html>'
       );
@@ -1141,13 +1141,6 @@ export default {
         const unitPrice = parseFloat(item.material_price || 0).toFixed(4);
         const requiredCost = parseFloat(item.required_cost || 0).toFixed(2); // 保留2位小数
         const currentStock = parseFloat(item.current_stock || 0).toFixed(2);
-        const shortage = item.shortage > 0 
-          ? (typeof item.shortage_display !== 'undefined' 
-            ? item.shortage_display 
-            : parseFloat(item.shortage || 0).toFixed(2)) + ' ' + (typeof item.shortage_unit !== 'undefined' 
-              ? item.shortage_unit 
-              : item.unit)
-          : '充足';
 
         tableRows += 
           '<tr>' +
@@ -1155,7 +1148,6 @@ export default {
           '  <td>' + item.material_sku + '</td>' +
           '  <td class="text-right">' + parseFloat(item.quantity_required || 0).toFixed(2) + ' ' + item.unit + '</td>' +
           '  <td class="text-right">' + currentStock + ' ' + item.unit + '</td>' +
-          '  <td>' + shortage + '</td>' +
           '  <td class="text-right">¥' + unitPrice + '</td>' +
           '  <td class="text-right">¥' + requiredCost + '</td>' +
           '  <td class="text-right">' + requiredQuantity + ' ' + requiredUnit + '</td>' +
@@ -1178,7 +1170,6 @@ export default {
         '      <th>物料SKU</th>' +
         '      <th>单位用量</th>' +
         '      <th>当前库存</th>' +
-        '      <th>库存状态</th>' +
         '      <th>物料单价</th>' +
         '      <th>需求成本</th>' +
         '      <th>需求数量</th>' +
@@ -1187,7 +1178,7 @@ export default {
         '  <tbody>' +
         tableRows +
         '    <tr class="total-row">' +
-        '      <td colspan="7">总计</td>' +
+        '      <td colspan="6">总计</td>' +
         '      <td class="text-right">¥' + totalCost.toFixed(2) + '</td>' +
         '    </tr>' +
         '  </tbody>' +
@@ -1957,6 +1948,29 @@ export default {
   
   .modal-body {
     padding: 16px;
+  }
+}
+
+@media print {
+  .print-container {
+    font-size: 8px !important; /* 减小字体 */
+    line-height: 1.2 !important; /* 紧凑行距 */
+  }
+  
+  .demand-item {
+    margin-bottom: 2px !important; /* 减小间距 */
+    padding: 2px !important;
+  }
+  
+  .demand-number {
+    font-size: 7px !important; /* 数字字体更小 */
+    white-space: nowrap !important; /* 防止数字换行 */
+  }
+  
+  .table th,
+  .table td {
+    font-size: 7px !important;
+    padding: 0.2rem !important; /* 减小单元格内边距 */
   }
 }
 </style>

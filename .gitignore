@@ -1,82 +1,339 @@
+# =================================
+# 开发环境 / 依赖
+# =================================
+
 # Python
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
 *.so
+.Python
 *.egg
 *.egg-info/
-.python-version
 pip-wheel-metadata/
 build/
+develop-eggs/
 dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 虚拟环境
 .venv/
 venv/
 env/
 ENV/
 env.bak/
 venv.bak/
-
-# Environment variables
-.env
-.env.*
-.env.*.local
-.env.local
-
-# Testing
-.pytest_cache/
-.mypy_cache/
-.coverage
-coverage.xml
-htmlcov/
-
-# Database
-*.db
-*.sqlite
-*.sqlite3
-db.sqlite3
-
-# Logs
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+pythonenv*
+.python-version
 
 # Node.js
 node_modules/
-dist-ssr/
-*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp/
+.pnp.js
+*.tsbuildinfo
+
+# Ruby
+*.gem
+.bundle
+.ruby-version
+
+# Go
+vendor/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# =================================
+# 前端框架
+# =================================
 
 # Vite
 .vite/
 dist/
+dist-ssr/
 
-# Cache
+# Next.js
+.next/
+out/
+
+# Nuxt.js
+.nuxt/
+
+# Gatsby
 .cache/
+# Comment in the public line in if your project uses Gatsby and not Next.js
+# https://nextjs.org/blog/next-9-1#public-directory-support
+# public
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
+# VuePress
+.vuepress/dist/
 
-# OS
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-[Tt]humbs.db
+# Angular
+.angular/
 
-# Secrets
+# Svelte
+.svelte-kit/
+
+# =================================
+# 数据库
+# =================================
+
+# SQLite
+*.db
+*.sqlite
+*.sqlite3
+db.sqlite3
+db.sqlite
+*.db-journal
+
+# MySQL
+*.frm
+*.myd
+*.myi
+
+# PostgreSQL
+*.pid
+*.socket
+postgresql/
+postgres/
+
+# Redis
+dump.rdb
+
+# =================================
+# 环境变量与密钥
+# =================================
+
+.env
+.env.*
+.env.*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 密钥文件
 *.pem
 *.key
 *.p12
 *.cer
 *.crt
 *.pub
+*.der
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
 
-# Temporary files
+# =================================
+# 日志文件
+# =================================
+
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# 运行时数据
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# =================================
+# 测试与覆盖率
+# =================================
+
+# 单元测试
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# 代码质量
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# =================================
+# 构建工具
+# =================================
+
+# Parcel
+.cache/
+.parcel-cache/
+
+# Webpack
+.webpack/
+
+# Rollup
+rollup.config-*.js
+
+# 类型Script
+*.tsbuildinfo
+
+# =================================
+# 编辑器与IDE
+# =================================
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# IntelliJ
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Sublime Text
+*.sublime-*
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# =================================
+# 操作系统文件
+# =================================
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Linux
+*~
+
+# =================================
+# 临时文件
+# =================================
+
 *.tmp
 *.temp
 *.bak
+*.swp
+*.swo
+*~
+
+# 崩溃转储
+*.dmp
+*.minidump
+
+# =================================
+# 包管理器的锁文件
+# =================================
+# 注意：以下文件应该被跟踪（所以不要忽略它们）：
+# package-lock.json    (npm)
+# yarn.lock           (Yarn)
+# pnpm-lock.yaml      (pnpm)
+# Pipfile.lock        (Python pipenv)
+# poetry.lock         (Python poetry)
+# Gemfile.lock        (Ruby)
+# Cargo.lock          (Rust)
+# composer.lock       (PHP Composer)
+
+# =================================
+# 项目特定文件
+# =================================
+
+# 本地配置文件
+.local-*
+.local.*
+
+# 覆盖配置文件
+override.*
+
+# 自定义输出目录
+out/
+output/
+
+# 暂存目录
+temp/
+tmp/
+staging/
+
+# =================================
+# 其他
+# =================================
+
+# 缓存目录
+.cache/
+
+# 依赖锁定文件（某些工具）
+.sass-cache/
+.parcel-cache/
+
+# 文档
+_site/
+
+# 杂项
+*.DS_Store
+*~
+.#*
+.~lock.*
+
+# 项目文件备份
+*.backup.*
+*_backup
+backup-*
