@@ -103,7 +103,8 @@ out/
 db.sqlite3
 db.sqlite
 *.db-journal
-
+*.db-shm
+*.db-wal
 # MySQL
 *.frm
 *.myd
