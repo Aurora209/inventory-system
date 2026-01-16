@@ -154,7 +154,7 @@ inventory-system/
    - 检查前端代理配置是否正确
 
 2. **数据库初始化失败**
-   - 确保有写入[data](file:///e:/OneDrive/EGO/inventory-system/backend/data)目录的权限
+   - 确保有写入[data](file:/inventory-system/backend/data)目录的权限
    - 检查SQLite是否正确安装
 
 3. **前端页面空白**
@@ -163,7 +163,7 @@ inventory-system/
 
 ### 日志查看
 
-后端日志存储在项目根目录的[logs](file:///e:/OneDrive/EGO/inventory-system/logs)目录中，可以通过查看日志来诊断问题。
+后端日志存储在项目根目录的[logs](file:/inventory-system/logs)目录中，可以通过查看日志来诊断问题。
 
 ## 贡献指南
 
@@ -175,10 +175,7 @@ inventory-system/
 4. 推送到分支 (`git push origin feature/AmazingFeature`)
 5. 开启Pull Request
 
-## 许可证
-
-本项目采用MIT许可证 - 查看[LICENSE](file:///e:/OneDrive/EGO/inventory-system/LICENSE)文件了解详情。
 
 ## 联系方式
 
-项目链接: [https://github.com/yourusername/inventory-system](https://github.com/yourusername/inventory-system)
+项目链接: [https://github.com/Aurora209/inventory-system](https://github.com/Aurora209/inventory-system)
