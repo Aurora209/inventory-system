@@ -329,12 +329,41 @@ class Order(BaseModel):
             raise ValueError('订单不存在')
         
         from utils.database import get_db_connection
+        from models.transaction import Transaction
+        from models.product import Product
+        
         with get_db_connection() as conn:
             try:
-                # 先删除订单项
+                # 获取订单项
+                order_items = OrderItem.get_by_order_id(order_id)
+                
+                # 恢复库存并删除相关交易记录
+                for item in order_items:
+                    product_id = item.get('product_id')
+                    quantity = float(item.get('quantity', 0))
+                    
+                    if product_id and quantity > 0:
+                        # 恢复库存（采购订单增加库存，销售订单减少库存）
+                        if existing['order_type'] == 'purchase':
+                            # 采购订单删除时，如果是已完成状态，则减少库存（原先是增加库存）
+                            if existing['status'] == 'completed':
+                                Product.update_stock(product_id, -quantity)
+                        elif existing['order_type'] == 'sales':
+                            # 销售订单删除时，如果是已完成状态，则增加库存（原先是减少库存）
+                            if existing['status'] == 'completed':
+                                Product.update_stock(product_id, quantity)
+                        
+                        # 删除相关的交易记录 - 修改这里以确保删除所有相关交易
+                        order_number = existing.get('order_number', '')
+                        conn.execute(
+                            'DELETE FROM transactions WHERE reference_no = ?',
+                            (order_number,)
+                        )
+                
+                # 删除订单项
                 OrderItem.delete_by_order_id(order_id)
                 
-                # 再删除订单
+                # 删除订单
                 query = 'DELETE FROM orders WHERE id = ?'
                 cursor = conn.execute(query, (order_id,))
                 conn.commit()
@@ -342,3 +371,28 @@ class Order(BaseModel):
             except Exception as e:
                 conn.rollback()
                 raise e
+
+    def delete(self, *args, **kwargs):
+        # 删除相关交易记录
+        Transaction.objects.filter(order=self).delete()
+        
+        # 如果订单已完成，则恢复库存数量
+        if self.status == 'completed':
+            for item in self.items.all():
+                product = item.product
+                # 修复：已完成的订单删除时应增加库存，而不是减少
+                product.quantity += item.quantity
+                product.save()
+                
+                # 创建反向交易记录，记录库存的恢复
+                Transaction.objects.create(
+                    product=product,
+                    transaction_type='incoming',  # 修复：增加库存的交易类型应为incoming
+                    quantity=item.quantity,
+                    description=f'Reverted from cancelled order {self.order_number}',
+                    user=self.created_by,
+                    order=self,
+                    date=self.updated_at
+                )
+        
+        super().delete(*args, **kwargs)
