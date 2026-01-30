@@ -1131,6 +1131,8 @@ export default {
       const totalCost = this.totalMaterialCost;
 
       let tableRows = '';
+      let totalQuantity = 0;
+      
       requirements.forEach(item => {
         const requiredQuantity = typeof item.required_quantity_display !== 'undefined' 
           ? item.required_quantity_display 
@@ -1141,6 +1143,10 @@ export default {
         const unitPrice = parseFloat(item.material_price || 0).toFixed(4);
         const requiredCost = parseFloat(item.required_cost || 0).toFixed(2); // 保留2位小数
         const currentStock = parseFloat(item.current_stock || 0).toFixed(2);
+        
+        // 累加需求数量（使用原始需求数量进行累加，确保总计正确）
+        const rawQty = parseFloat(item.required_quantity || 0);
+        totalQuantity += rawQty;
 
         tableRows += 
           '<tr>' +
@@ -1178,14 +1184,13 @@ export default {
         '  <tbody>' +
         tableRows +
         '    <tr class="total-row">' +
-        '      <td colspan="6">总计</td>' +
+        '      <td>总计</td>' +
+        '      <td colspan="4"></td>' +
         '      <td class="text-right">¥' + totalCost.toFixed(2) + '</td>' +
+        '      <td class="text-right">' + (totalQuantity / 1000).toFixed(2) + ' l</td>' +
         '    </tr>' +
         '  </tbody>' +
-        '</table>' +
-        '<div class="footer">' +
-        '  打印时间: ' + new Date().toLocaleString('zh-CN') +
-        '</div>';
+        '</table>';
     }
   }
 }
